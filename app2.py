@@ -161,8 +161,8 @@ W  = "w"   # peso mensualizado
 # ─── Cargar ECV 2026 ──────────────────────────────────────────────────────────
 @st.cache_data(show_spinner="Cargando ECV 2026...")
 def load_ecv():
-    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "datos_ECV26.csv")
-    ecv = pd.read_csv(path, encoding="utf-8", encoding_errors="replace")
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "datos_ECV26.zip")
+    ecv = pd.read_csv(path, encoding="utf-8", encoding_errors="replace", compression="zip")
     ecv["fex"] = ecv["FEX_C"].astype(str).str.replace(",", ".").astype(float)
     ecv = ecv[ecv["TERRITORIO"] == "Barranquilla"].copy()
     ecv = ecv[ecv["edad"].isin(["14-17", "18-23", "24-28"])].copy()
@@ -175,8 +175,8 @@ def load_ecv():
 
 @st.cache_data(show_spinner="Cargando IPM...")
 def load_ipm():
-    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "datos_IPM.csv")
-    ipm = pd.read_csv(path, encoding="utf-8", encoding_errors="replace")
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "datos_IPM.zip")
+    ipm = pd.read_csv(path, encoding="utf-8", encoding_errors="replace", compression="zip")
     ipm = ipm[(ipm["DEPARTAMENTO"] == 13) & (ipm["clase"] == "Cabecera")].copy()
     ipm = ipm[ipm["edad"].isin(["14-17", "18-23", "24-28"])].copy()
     ipm["Sexo"] = ipm["sexo"].map({"Hombres": "Hombre", "Mujeres": "Mujer"})
